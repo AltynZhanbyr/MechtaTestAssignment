@@ -79,4 +79,8 @@ dependencies {
 
     //Coroutines
     implementation(libs.kotlinx.coroutines)
+
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 }
