@@ -13,8 +13,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
 import com.example.mechtatestassignment.ui.component.SmartphoneItem
+import com.example.mechtatestassignment.ui.navigation.Screen
 import org.koin.androidx.compose.koinViewModel
+
+fun NavGraphBuilder.mainScreen() = composable(route = Screen.MainScreen.route) {
+    MainScreen()
+}
+
 
 @Composable
 fun MainScreen() {

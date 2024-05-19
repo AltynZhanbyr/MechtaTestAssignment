@@ -6,41 +6,36 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.example.mechtatestassignment.ui.navigation.Screen
+import com.example.mechtatestassignment.ui.screen.main.mainScreen
 import com.example.mechtatestassignment.ui.theme.MechtaTestAssignmentTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
-            MechtaTestAssignmentTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+            MainApp()
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
+fun MainApp() {
     MechtaTestAssignmentTheme {
-        Greeting("Android")
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            val navHostController = rememberNavController()
+            NavHost(navController = navHostController, startDestination = Screen.MainScreen.route) {
+                mainScreen()
+            }
+        }
     }
 }
