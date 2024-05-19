@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class StickersDto(
     @SerializedName("trade-in-aktsiya")
-    val tradeIn: TradeInDto? = null,
+    val tradeIn: TradeInDto,
     @SerializedName("delivery-express")
-    val deliveryExpress: DeliveryExpressDto? = null
+    val deliveryExpress: DeliveryExpressDto,
 )

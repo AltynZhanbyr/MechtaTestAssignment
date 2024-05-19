@@ -4,23 +4,23 @@ import com.google.gson.annotations.SerializedName
 
 data class Data(
     @SerializedName("section_list")
-    val sectionList: List<SectionDto> = emptyList(),
+    val sectionList: List<SectionDto>,
     @SerializedName("all_items_count")
-    val allItemsCount: Int? = null,
+    val allItemsCount: Long,
     @SerializedName("page_items_count")
-    val pageItemsCount: Int? = null,
+    val pageItemsCount: Long,
     @SerializedName("page_number")
-    val pageNumber: Int? = null,
-    val items: List<ItemDto> = emptyList(),
-    val breadcrumbs: List<Breadcrumbs> = emptyList(),
+    val pageNumber: Long,
+    val items: List<ItemDto>,
+    val breadcrumbs: List<BreadcrumbDto>,
     @SerializedName("section_id")
-    val sectionId: Int? = null,
+    val sectionId: Long,
     @SerializedName("section_1c_code")
-    val section1cCode: String? = null,
+    val section1cCode: String,
     @SerializedName("section_description")
-    val sectionDescription: String? = null,
-    val index: Boolean? = null,
+    val sectionDescription: String,
+    val index: Boolean,
     @SerializedName("meta_tags")
-    val metaTags: MetaTagsDto? = null,
-    val header: String? = null
+    val metaTags: MetaTagsDto,
+    val header: String,
 )

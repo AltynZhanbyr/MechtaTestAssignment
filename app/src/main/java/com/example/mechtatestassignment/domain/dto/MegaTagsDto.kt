@@ -3,20 +3,19 @@ package com.example.mechtatestassignment.domain.dto
 import com.google.gson.annotations.SerializedName
 
 data class MetaTagsDto(
-    val title: String? = null,
-    val description: String? = null,
-    val keywords: String? = null,
+    val title: String,
+    val description: String,
+    val keywords: String,
     @SerializedName("og:title")
-    val ogTitle: String? = null,
+    val ogTitle: String,
     @SerializedName("og:type")
-    val ogType: String? = null,
+    val ogType: String,
     @SerializedName("og:image")
-    val ogImage: String? = null,
+    val ogImage: String,
     @SerializedName("og:image:width")
-    val ogImageWidth: String? = null,
+    val ogImageWidth: String,
     @SerializedName("og:image:height")
-    val ogImageHeight: String? = null,
-    val canonical: String? = null,
-    @SerializedName("noindex")
-    val noIndex: String? = null
+    val ogImageHeight: String,
+    val canonical: Any?,
+    val noindex: Any?,
 )

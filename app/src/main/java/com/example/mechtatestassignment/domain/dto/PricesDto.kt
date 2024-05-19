@@ -1,7 +1,12 @@
 package com.example.mechtatestassignment.domain.dto
 
+import com.google.gson.annotations.SerializedName
+
 data class PricesDto(
-    val discountedPrice: Int? = null,
-    val basePrice: Int? = null,
-    val hasDiscount: Boolean? = null
+    @SerializedName("discounted_price")
+    val discountedPrice: Long,
+    @SerializedName("base_price")
+    val basePrice: Long,
+    @SerializedName("has_discount")
+    val hasDiscount: Boolean,
 )

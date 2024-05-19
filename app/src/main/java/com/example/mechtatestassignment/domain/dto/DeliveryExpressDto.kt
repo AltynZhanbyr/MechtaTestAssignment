@@ -1,7 +1,7 @@
 package com.example.mechtatestassignment.domain.dto
 
 data class DeliveryExpressDto(
-    val name: String? = null,
-    val link: String? = null,
-    val color: String? = null
+    val name: String,
+    val link: String,
+    val color: String
 )
