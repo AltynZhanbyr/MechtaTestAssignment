@@ -1,12 +1,13 @@
 package com.example.mechtatestassignment.ui.screen.main
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -41,29 +42,47 @@ fun MainScreen() {
         }
     }
 
-    MainScreen(state = state)
+
+    MainScreen(
+        state = state,
+        loadNextItems = viewModel::loadNextItems
+    )
 }
 
 @Composable
 private fun MainScreen(
-    state: MainUiState
+    state: MainUiState,
+    loadNextItems: () -> Unit
 ) {
+
     Scaffold { paddingValues ->
         Box(
             modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize()
         ) {
-            if (state.isLoading)
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .size(24.dp)
-                        .align(Alignment.Center)
-                )
-            else {
-                LazyColumn {
-                    items(state.items) { item ->
-                        SmartphoneItem(item = item)
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                items(state.items.size) { i ->
+                    val item = state.items[i]
+                    if (i >= state.items.size - 1 && !state.endReached && !state.isLoading) {
+                        loadNextItems()
+                    }
+                    SmartphoneItem(item = item)
+                }
+                item {
+                    if (state.isLoading) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            CircularProgressIndicator()
+                        }
                     }
                 }
             }

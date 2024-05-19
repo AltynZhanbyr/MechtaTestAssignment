@@ -43,7 +43,7 @@ fun SmartphoneItem(
         }
 
         Text(
-            text = "\$${item.price}",
+            text = "${item.price} тг.",
             modifier = Modifier.padding(bottom = 8.dp)
         )
 

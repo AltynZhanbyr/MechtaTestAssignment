@@ -6,7 +6,6 @@ import com.example.mechtatestassignment.data.remote.model.Response
 interface RemoteRepository {
     suspend fun getSmartphones(
         page: Int,
-        limit: Int,
-        selection: String
+        limit: Int
     ): Response<Data>
 }

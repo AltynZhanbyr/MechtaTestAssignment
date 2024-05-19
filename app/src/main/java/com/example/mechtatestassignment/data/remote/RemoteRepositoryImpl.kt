@@ -10,7 +10,6 @@ class RemoteRepositoryImpl(
 ) : RemoteRepository {
     override suspend fun getSmartphones(
         page: Int,
-        limit: Int,
-        selection: String
-    ): Response<Data> = mechtaApi.getSmartphones(page, limit, selection)
+        limit: Int
+    ): Response<Data> = mechtaApi.getSmartphones(page, limit)
 }

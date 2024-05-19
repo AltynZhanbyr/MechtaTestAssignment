@@ -1,6 +1,5 @@
 package com.example.mechtatestassignment.data.remote.dto
 
-import com.example.mechtatestassignment.domain.model.Item
 import com.google.gson.annotations.SerializedName
 
 data class ItemDto(
@@ -58,11 +57,4 @@ data class ItemDto(
     val gifts: List<Any?>,
     @SerializedName("city_code_for_kaspi")
     val cityCodeForKaspi: String,
-)
-
-fun ItemDto.toModel() = Item(
-    id = id,
-    name = name,
-    photos = photos,
-    price = price
 )
