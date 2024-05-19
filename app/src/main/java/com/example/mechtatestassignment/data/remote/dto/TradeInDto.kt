@@ -1,4 +1,4 @@
-package com.example.mechtatestassignment.domain.dto
+package com.example.mechtatestassignment.data.remote.dto
 
 data class TradeInDto(
     val name: String,

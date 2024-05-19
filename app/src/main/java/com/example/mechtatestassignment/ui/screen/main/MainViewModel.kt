@@ -1,6 +1,5 @@
 package com.example.mechtatestassignment.ui.screen.main
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mechtatestassignment.domain.useCase.GetSmartphonesUseCase
@@ -23,6 +22,14 @@ class MainViewModel(
         fetchData()
     }
 
+    fun cleanMessage() {
+        _state.update { state ->
+            state.copy(
+                message = ""
+            )
+        }
+    }
+
     @OptIn(FlowPreview::class)
     private fun fetchData() {
         viewModelScope.launch {
@@ -37,7 +44,6 @@ class MainViewModel(
                 }
                 .catch { throwable ->
                     _state.update { state ->
-                        Log.d("fetchData", "here")
                         state.copy(
                             isLoading = false,
                             message = throwable.message.orEmpty()
@@ -45,7 +51,6 @@ class MainViewModel(
                     }
                 }
                 .collect { items ->
-                    Log.d("fetchData", items.toString())
                     _state.update { state ->
                         state.copy(
                             isLoading = false,

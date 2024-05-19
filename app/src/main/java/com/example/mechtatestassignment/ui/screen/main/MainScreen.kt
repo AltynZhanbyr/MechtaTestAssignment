@@ -1,5 +1,6 @@
 package com.example.mechtatestassignment.ui.screen.main
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -9,8 +10,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
@@ -27,8 +30,17 @@ fun NavGraphBuilder.mainScreen() = composable(route = Screen.MainScreen.route) {
 @Composable
 fun MainScreen() {
     val viewModel = koinViewModel<MainViewModel>()
-
     val state = viewModel.state.collectAsStateWithLifecycle().value
+
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = state.message) {
+        if (state.message.isNotBlank()) {
+            Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
+            viewModel.cleanMessage()
+        }
+    }
+
     MainScreen(state = state)
 }
 

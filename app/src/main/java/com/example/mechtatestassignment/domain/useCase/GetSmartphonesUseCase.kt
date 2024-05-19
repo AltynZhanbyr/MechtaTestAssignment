@@ -1,7 +1,7 @@
 package com.example.mechtatestassignment.domain.useCase
 
+import com.example.mechtatestassignment.data.remote.dto.toModel
 import com.example.mechtatestassignment.data.remote.model.handle
-import com.example.mechtatestassignment.domain.dto.toModel
 import com.example.mechtatestassignment.domain.model.Item
 import com.example.mechtatestassignment.domain.repository.RemoteRepository
 import kotlinx.coroutines.flow.Flow

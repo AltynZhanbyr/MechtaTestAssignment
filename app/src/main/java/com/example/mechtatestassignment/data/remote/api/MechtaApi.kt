@@ -1,7 +1,7 @@
 package com.example.mechtatestassignment.data.remote.api
 
+import com.example.mechtatestassignment.data.remote.dto.Data
 import com.example.mechtatestassignment.data.remote.model.Response
-import com.example.mechtatestassignment.domain.dto.Data
 import retrofit2.http.GET
 import retrofit2.http.Query
 

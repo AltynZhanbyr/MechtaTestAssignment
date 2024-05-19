@@ -1,4 +1,4 @@
-package com.example.mechtatestassignment.domain.dto
+package com.example.mechtatestassignment.data.remote.dto
 
 import com.example.mechtatestassignment.domain.model.Item
 import com.google.gson.annotations.SerializedName
