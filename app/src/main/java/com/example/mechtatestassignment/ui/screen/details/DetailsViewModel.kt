@@ -24,6 +24,14 @@ class DetailsViewModel(
         fetchData()
     }
 
+    fun cleanMessage() {
+        _state.update { state ->
+            state.copy(
+                message = ""
+            )
+        }
+    }
+
     @OptIn(FlowPreview::class)
     private fun fetchData() {
         viewModelScope.launch(Dispatchers.IO) {

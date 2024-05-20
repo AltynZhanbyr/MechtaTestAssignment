@@ -75,7 +75,19 @@ data class DataDetailsDto(
     @SerializedName("same_products")
     val sameProducts: SameProducts,
     val shops: List<Shop>,
-    val stickers: List<Any?>,
+    val stickers: Stickers,
+)
+
+data class Stickers(
+    @SerializedName("trade-in-aktsiya")
+    val tradeInAktsiya: TradeInAktsiya,
+)
+
+data class TradeInAktsiya(
+    val name: String,
+    val link: String,
+    val code: String,
+    val color: String,
 )
 
 data class Shop(
