@@ -7,6 +7,9 @@ fun ItemDto.toModel() = Item(
     id = id,
     name = name,
     photos = photos,
-    price = price
+    price = price,
+    code = code
 )
+
+
 

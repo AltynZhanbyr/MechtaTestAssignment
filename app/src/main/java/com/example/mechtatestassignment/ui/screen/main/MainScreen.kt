@@ -21,6 +21,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.mechtatestassignment.ui.component.SmartphoneItem
 import com.example.mechtatestassignment.ui.navigation.Screen
+import com.example.mechtatestassignment.ui.navigation.navigateToDetails
+import com.example.mechtatestassignment.util.LocalNavigation
 import org.koin.androidx.compose.koinViewModel
 
 fun NavGraphBuilder.mainScreen() = composable(route = Screen.MainScreen.route) {
@@ -34,6 +36,7 @@ fun MainScreen() {
     val state = viewModel.state.collectAsStateWithLifecycle().value
 
     val context = LocalContext.current
+    val navigation = LocalNavigation.current
 
     LaunchedEffect(key1 = state.message) {
         if (state.message.isNotBlank()) {
@@ -45,7 +48,10 @@ fun MainScreen() {
     MainScreen(
         state = state,
         action = { actions ->
-            viewModel.fetchActions(actions)
+            if (actions is MainScreenAction.ItemClick)
+                navigation.navigateToDetails(actions.selectedItem.code)
+            else
+                viewModel.fetchActions(actions)
         }
     )
 }

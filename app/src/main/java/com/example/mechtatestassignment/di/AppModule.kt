@@ -3,6 +3,7 @@ package com.example.mechtatestassignment.di
 import com.example.mechtatestassignment.data.remote.RemoteRepositoryImpl
 import com.example.mechtatestassignment.data.remote.api.MechtaApi
 import com.example.mechtatestassignment.domain.repository.RemoteRepository
+import com.example.mechtatestassignment.domain.useCase.GetSmartphoneDetailsUseCase
 import com.example.mechtatestassignment.domain.useCase.GetSmartphonesUseCase
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
@@ -43,4 +44,5 @@ val appModule = module {
     }
 
     factoryOf(::GetSmartphonesUseCase)
+    factoryOf(::GetSmartphoneDetailsUseCase)
 }

@@ -113,7 +113,8 @@ private fun SmartphoneItemPrev() {
             id = 1522,
             name = "Samsung",
             photos = listOf("https://www.mechta.kz/export/1cbitrix/import_files/01/010cd404-b5ad-11ee-a264-005056b6dbd7.png"),
-            price = 70000
+            price = 70000,
+            code = ""
         )
         SmartphoneItem(
             item = item,
