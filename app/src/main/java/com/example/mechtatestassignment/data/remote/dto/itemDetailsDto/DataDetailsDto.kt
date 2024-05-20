@@ -48,7 +48,7 @@ data class DataDetailsDto(
     val metaTags: MetaTagsDetailsDto,
     val breadcrumbs: List<BreadcrumbDetailsDto>,
     @SerializedName("main_properties")
-    val mainProperties: List<MainProperty>,
+    val mainProperties: List<MainPropertyDto>,
     val properties: Properties,
     val stream24: StreamDto,
     @SerializedName("equal_products_model_id")
@@ -73,14 +73,14 @@ data class DataDetailsDto(
     @SerializedName("same_product_properties")
     val sameProductProperties: List<String>,
     @SerializedName("same_products")
-    val sameProducts: SameProducts,
+    val sameProducts: Any?,
     val shops: List<Shop>,
-    val stickers: Stickers,
+    val stickers: Any?,
 )
 
 data class Stickers(
     @SerializedName("trade-in-aktsiya")
-    val tradeInAktsiya: TradeInAktsiya,
+    val tradeInAktsiya: TradeInAktsiya
 )
 
 data class TradeInAktsiya(
