@@ -3,6 +3,7 @@ package com.example.mechtatestassignment.ui
 import android.app.Application
 import com.example.mechtatestassignment.di.appModule
 import com.example.mechtatestassignment.di.screenModule
+import com.example.mechtatestassignment.di.useCaseModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -16,7 +17,8 @@ class MainApplication : Application() {
             androidContext(this@MainApplication)
             modules(
                 appModule,
-                screenModule
+                screenModule,
+                useCaseModule
             )
         }
     }

@@ -3,6 +3,7 @@ package com.example.mechtatestassignment.ui.screen.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mechtatestassignment.domain.useCase.GetSmartphonesUseCase
+import com.example.mechtatestassignment.util.AppPreferences
 import com.example.mechtatestassignment.util.consts.PAGING_PAGE_SIZE
 import com.example.mechtatestassignment.util.paging.PagingImpl
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class MainViewModel(
+    private val appPreferences: AppPreferences,
     private val getSmartphonesUseCase: GetSmartphonesUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(MainUiState())
@@ -40,10 +42,17 @@ class MainViewModel(
         },
         onSuccess = { items, newKey ->
             _state.update { state ->
+                var newItems = state.items + items
+                newItems = newItems.map { item ->
+                    item.copy(
+                        isFavorite = appPreferences.getBoolean(item.code)
+                    )
+                }
+
                 state.copy(
-                    items = state.items + items,
+                    items = newItems,
                     pageInitial = newKey,
-                    endReached = items.isEmpty()
+                    endReached = items.isEmpty(),
                 )
             }
         }
@@ -69,6 +78,25 @@ class MainViewModel(
         }
     }
 
+    fun replaceItemFavorite(
+        isFavorite: Boolean?,
+        code: String?
+    ) {
+        if (isFavorite == null && code == null) return
+
+        _state.update { currentState ->
+            val updatedItems = currentState.items.map { item ->
+                if (item.code == code) {
+                    item.copy(isFavorite = isFavorite!!)
+                } else {
+                    item
+                }
+            }
+
+            currentState.copy(items = updatedItems)
+        }
+    }
+
     private fun loadNextItems() {
         viewModelScope.launch {
             paginator.loadNextItems()
@@ -81,7 +109,11 @@ class MainViewModel(
             val idx = list.indexOf(selectedItem)
 
             list.removeAt(idx)
-            val newItem = selectedItem.copy(isFavorite = !selectedItem.isFavorite)
+
+            val isFavorite = !selectedItem.isFavorite
+            appPreferences.setBoolean(selectedItem.code, isFavorite)
+
+            val newItem = selectedItem.copy(isFavorite = isFavorite)
             list.add(idx, newItem)
 
             state.copy(

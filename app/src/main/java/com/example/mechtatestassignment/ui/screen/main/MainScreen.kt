@@ -21,18 +21,23 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.mechtatestassignment.ui.component.SmartphoneItem
 import com.example.mechtatestassignment.ui.navigation.Screen
+import com.example.mechtatestassignment.ui.navigation.getOnce
 import com.example.mechtatestassignment.ui.navigation.navigateToDetails
+import com.example.mechtatestassignment.ui.screen.details.IS_FAVORITE
+import com.example.mechtatestassignment.ui.screen.details.ITEM_CODE
 import com.example.mechtatestassignment.util.LocalNavigation
 import org.koin.androidx.compose.koinViewModel
 
 fun NavGraphBuilder.mainScreen() = composable(route = Screen.MainScreen.route) {
-    MainScreen()
+    val viewModel = koinViewModel<MainViewModel>()
+    MainScreen(viewModel)
 }
 
 
 @Composable
-fun MainScreen() {
-    val viewModel = koinViewModel<MainViewModel>()
+fun MainScreen(
+    viewModel: MainViewModel
+) {
     val state = viewModel.state.collectAsStateWithLifecycle().value
 
     val context = LocalContext.current
@@ -43,6 +48,13 @@ fun MainScreen() {
             Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
             viewModel.cleanMessage()
         }
+    }
+
+    navigation.currentBackStackEntry?.savedStateHandle?.let { savedStateHandle ->
+        val isFavorite = savedStateHandle.getOnce<Boolean>(IS_FAVORITE)
+        val code = savedStateHandle.getOnce<String>(ITEM_CODE)
+
+        viewModel.replaceItemFavorite(isFavorite, code)
     }
 
     MainScreen(

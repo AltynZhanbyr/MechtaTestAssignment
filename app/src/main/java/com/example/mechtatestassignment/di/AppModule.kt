@@ -7,20 +7,17 @@ import com.example.mechtatestassignment.data.remote.api.MechtaApi
 import com.example.mechtatestassignment.data.remote.dto.itemDetailsDto.SameProducts
 import com.example.mechtatestassignment.data.remote.dto.itemDetailsDto.Stickers
 import com.example.mechtatestassignment.domain.repository.RemoteRepository
-import com.example.mechtatestassignment.domain.useCase.GetSmartphoneDetailsUseCase
-import com.example.mechtatestassignment.domain.useCase.GetSmartphonesUseCase
+import com.example.mechtatestassignment.util.AppPreferences
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.core.module.dsl.factoryOf
+import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.reflect.Type
-import kotlin.coroutines.CoroutineContext
 
 
 val appModule = module {
@@ -35,6 +32,10 @@ val appModule = module {
             .addInterceptor(get<HttpLoggingInterceptor>())
             .build()
 
+    }
+
+    factory<RemoteRepository> {
+        RemoteRepositoryImpl(get())
     }
 
     single<Gson> {
@@ -56,12 +57,8 @@ val appModule = module {
             .create(MechtaApi::class.java)
     }
 
-    single<CoroutineContext> { Dispatchers.IO }
-
-    factory<RemoteRepository> {
-        RemoteRepositoryImpl(get())
+    single<AppPreferences> {
+        AppPreferences(androidApplication())
     }
 
-    factoryOf(::GetSmartphonesUseCase)
-    factoryOf(::GetSmartphoneDetailsUseCase)
 }
