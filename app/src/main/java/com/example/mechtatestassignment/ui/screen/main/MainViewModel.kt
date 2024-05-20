@@ -53,12 +53,6 @@ class MainViewModel(
         loadNextItems()
     }
 
-    fun loadNextItems() {
-        viewModelScope.launch {
-            paginator.loadNextItems()
-        }
-    }
-
     fun cleanMessage() {
         _state.update { state ->
             state.copy(
@@ -67,5 +61,32 @@ class MainViewModel(
         }
     }
 
+    fun fetchActions(action: MainScreenAction) {
+        when (action) {
+            is MainScreenAction.LoadNextItems -> loadNextItems()
+            is MainScreenAction.ItemClick -> {}
+            is MainScreenAction.FavoriteToggle -> action.favoriteToggle()
+        }
+    }
 
+    private fun loadNextItems() {
+        viewModelScope.launch {
+            paginator.loadNextItems()
+        }
+    }
+
+    private fun MainScreenAction.FavoriteToggle.favoriteToggle() {
+        _state.update { state ->
+            val list = state.items.toMutableList()
+            val idx = list.indexOf(selectedItem)
+
+            list.removeAt(idx)
+            val newItem = selectedItem.copy(isFavorite = !selectedItem.isFavorite)
+            list.add(idx, newItem)
+
+            state.copy(
+                items = list
+            )
+        }
+    }
 }

@@ -1,6 +1,6 @@
 package com.example.mechtatestassignment.data.remote.api
 
-import com.example.mechtatestassignment.data.remote.dto.Data
+import com.example.mechtatestassignment.data.remote.dto.itemListDto.DataListDto
 import com.example.mechtatestassignment.data.remote.model.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -12,5 +12,5 @@ interface MechtaApi {
         page: Int,
         @Query("page_limit")
         limit: Int
-    ): Response<Data>
+    ): Response<DataListDto>
 }

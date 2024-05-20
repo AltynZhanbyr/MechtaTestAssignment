@@ -1,8 +1,8 @@
-package com.example.mechtatestassignment.data.remote.dto
+package com.example.mechtatestassignment.data.remote.dto.itemListDto
 
 import com.google.gson.annotations.SerializedName
 
-data class Data(
+data class DataListDto(
     @SerializedName("section_list")
     val sectionList: List<SectionDto>,
     @SerializedName("all_items_count")

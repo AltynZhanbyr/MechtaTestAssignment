@@ -42,17 +42,18 @@ fun MainScreen() {
         }
     }
 
-
     MainScreen(
         state = state,
-        loadNextItems = viewModel::loadNextItems
+        action = { actions ->
+            viewModel.fetchActions(actions)
+        }
     )
 }
 
 @Composable
 private fun MainScreen(
     state: MainUiState,
-    loadNextItems: () -> Unit
+    action: (MainScreenAction) -> Unit
 ) {
 
     Scaffold { paddingValues ->
@@ -69,9 +70,17 @@ private fun MainScreen(
                 items(state.items.size) { i ->
                     val item = state.items[i]
                     if (i >= state.items.size - 1 && !state.endReached && !state.isLoading) {
-                        loadNextItems()
+                        action(MainScreenAction.LoadNextItems)
                     }
-                    SmartphoneItem(item = item)
+                    SmartphoneItem(
+                        item = item,
+                        onItemClick = { selectedItem ->
+                            action(MainScreenAction.ItemClick(selectedItem))
+                        },
+                        onFavoriteClick = { selectedItem ->
+                            action(MainScreenAction.FavoriteToggle(selectedItem))
+                        },
+                    )
                 }
                 item {
                     if (state.isLoading) {
