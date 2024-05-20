@@ -1,6 +1,7 @@
 package com.example.mechtatestassignment.domain.useCase
 
 import com.example.mechtatestassignment.data.mapper.toModel
+import com.example.mechtatestassignment.data.remote.model.handle
 import com.example.mechtatestassignment.domain.model.Item
 import com.example.mechtatestassignment.domain.repository.RemoteRepository
 import retrofit2.HttpException
@@ -15,12 +16,13 @@ class GetSmartphonesUseCase(
     ): Result<List<Item>> {
         try {
             val result = remoteRepository.getSmartphones(page, limit)
-            val isSuccess = result.data != null && result.result
-            if (isSuccess) return Result.success(result.data?.items?.map { dto ->
-                dto.toModel()
-            } ?: emptyList())
 
-            if (!result.result && result.errors.isNotEmpty()) return Result.failure(Exception(result.errors[0]))
+            result.handle { data ->
+                val list = data.data?.items?.map { dto ->
+                    dto.toModel()
+                } ?: emptyList()
+                return Result.success(list)
+            }
 
             return Result.failure(Exception("An unexpected error occurred"))
 
