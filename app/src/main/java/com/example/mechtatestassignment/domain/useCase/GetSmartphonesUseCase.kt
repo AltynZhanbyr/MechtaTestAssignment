@@ -16,16 +16,13 @@ class GetSmartphonesUseCase(
     ): Result<List<Item>> {
         try {
             val result = remoteRepository.getSmartphones(page, limit)
-
             result.handle { data ->
                 val list = data.data?.items?.map { dto ->
                     dto.toModel()
                 } ?: emptyList()
                 return Result.success(list)
             }
-
             return Result.failure(Exception("An unexpected error occurred"))
-
         } catch (e: IOException) {
             return Result.failure(Exception("Couldn't reach server. Check your internet connection."))
         } catch (e: HttpException) {

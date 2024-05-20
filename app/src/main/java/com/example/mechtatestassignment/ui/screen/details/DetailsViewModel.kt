@@ -52,11 +52,11 @@ class DetailsViewModel(
                         )
                     }
                 }
-                .collect { dto ->
+                .collect { details ->
                     _state.update { state ->
                         state.copy(
                             isLoading = false,
-                            detailsDto = dto
+                            details = details
                         )
                     }
                 }

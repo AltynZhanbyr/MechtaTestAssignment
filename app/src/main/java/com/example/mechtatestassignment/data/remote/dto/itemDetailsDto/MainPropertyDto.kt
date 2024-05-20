@@ -2,7 +2,7 @@ package com.example.mechtatestassignment.data.remote.dto.itemDetailsDto
 
 import com.google.gson.annotations.SerializedName
 
-data class MainProperty(
+data class MainPropertyDto(
     @SerializedName("prop_name")
     val propName: String,
     @SerializedName("prop_name_description")
